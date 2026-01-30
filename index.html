@@ -1,95 +1,138 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>知識部 公式サイト</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="学校チーム 知識部の公式サイトです。活動内容やお知らせを発信します。">
+<meta charset="UTF-8">
+<title>知識部 公式サイト</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="学校チーム 知識部の公式サイトです。活動内容やお知らせを発信します。">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", sans-serif;
-      background: #f4f6f8;
-      color: #333;
-    }
+<style>
+  body {
+    margin: 0;
+    font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", sans-serif;
+    background: #f4f6f8;
+    color: #333;
+  }
 
-    header {
-      background: linear-gradient(135deg, #1e3a8a, #2563eb);
-      color: white;
-      padding: 30px 20px;
-      text-align: center;
-    }
+  /* 全画面クイズ */
+  #quiz-screen {
+    position: fixed;
+    top:0; left:0;
+    width: 100vw;
+    height: 100vh;
+    background: #eef2ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+  }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.2em;
-    }
+  #quiz-screen input {
+    padding: 10px;
+    font-size: 1em;
+    margin-top: 10px;
+  }
 
-    nav {
-      background: linear-gradient(90deg, #374151, #111827);
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      padding: 10px 0;
-    }
+  #quiz-screen button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    font-size: 1em;
+    cursor: pointer;
+  }
 
-    nav a {
-      color: #f3f4f6;
-      text-decoration: none;
-      font-weight: bold;
-    }
+  #quiz-screen #hint {
+    font-size: 0.9em;
+    color: gray;
+    margin-top: 10px;
+  }
 
-    nav a:hover {
-      text-decoration: underline;
-    }
+  /* 通常サイトは最初非表示 */
+  #main-site {
+    display: none;
+  }
 
-    section {
-      max-width: 900px;
-      margin: 40px auto;
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-    }
+  header {
+    background: linear-gradient(135deg, #1e3a8a, #2563eb);
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+  }
 
-    section h2 {
-      border-left: 6px solid #1e3a8a;
-      padding-left: 10px;
-    }
+  nav {
+    background: linear-gradient(90deg, #374151, #111827);
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px 0;
+  }
 
-    /* 特集欄 */
-    .feature {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 30px;
-      background: linear-gradient(135deg, #f9fafb, #e5e7eb);
-      border-radius: 12px;
-    }
+  nav a {
+    color: #f3f4f6;
+    text-decoration: none;
+    font-weight: bold;
+  }
 
-    .feature h2 {
-      border-left: 6px solid #2563eb;
-      padding-left: 10px;
-    }
+  nav a:hover {
+    text-decoration: underline;
+  }
 
-    .feature-box {
-      margin-top: 20px;
-      padding: 20px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    }
+  section {
+    max-width: 900px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+  }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #111827;
-      color: #ccc;
-      font-size: 0.9em;
-    }
-  </style>
+  section h2 {
+    border-left: 6px solid #1e3a8a;
+    padding-left: 10px;
+  }
+
+  .feature {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background: linear-gradient(135deg, #f9fafb, #e5e7eb);
+    border-radius: 12px;
+  }
+
+  .feature h2 {
+    border-left: 6px solid #2563eb;
+    padding-left: 10px;
+  }
+
+  .feature-box {
+    margin-top: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    background: #111827;
+    color: #ccc;
+    font-size: 0.9em;
+  }
+</style>
 </head>
-
 <body>
+
+<!-- 全画面クイズ -->
+<div id="quiz-screen">
+  <h2>限定コンテンツアクセス</h2>
+  <label for="answer">質問: 6-2の社会の担当の先生は？</label>
+  <input type="text" id="answer">
+  <button onclick="checkAnswer()">送信</button>
+  <div id="hint">ヒント: 〇〇先生。2文字！</div>
+</div>
+
+<!-- 通常サイト -->
+<div id="main-site">
 
 <header>
   <h1>知識部 公式サイト</h1>
@@ -104,21 +147,21 @@
   <a href="#contact">お問い合わせ</a>
 </nav>
 
-<!-- 特集欄 -->
 <section class="feature">
   <h2>特集</h2>
-
   <div class="feature-box">
     <h3>🔥 今月の特集</h3>
     <p>
       知識部の注目活動やおすすめ企画をピックアップ！
       新しい取り組みや成果をまとめて紹介します。
-      ※本サイトは維持のため広告を使用しています。</p>ご了承ください。
+      ※本サイトは維持のため広告を使用しています。
     </p>
     <p>↓広告</p>
     <!-- admax -->
-<script src="https://adm.shinobi.jp/s/10dde832a85c6e8499a773ddb4dd2e4b"></script>
-<!-- admax -->
+    <div>
+      <script src="https://adm.shinobi.jp/s/10dde832a85c6e8499a773ddb4dd2e4b"></script>
+    </div>
+    <!-- admax -->
   </div>
 </section>
 
@@ -159,18 +202,28 @@
   © 2026 知識部 All Rights Reserved.
 </footer>
 
-<!-- admax -->
-<script src="https://adm.shinobi.jp/s/782adfd062e5aa211fdbd57680e2e1d0"></script>
-<!-- admax -->
+<!-- 他の広告 -->
+<div>
+  <script src="https://adm.shinobi.jp/s/782adfd062e5aa211fdbd57680e2e1d0"></script>
+</div>
+<div>
+  <script src="https://adm.shinobi.jp/s/5410512e20263ad8433f0160082fe2b4"></script>
+</div>
 
-<!-- admax -->
-<script src="https://adm.shinobi.jp/s/5410512e20263ad8433f0160082fe2b4"></script>
-<!-- admax -->
+</div>
+
+<script>
+function checkAnswer() {
+  const userAnswer = document.getElementById('answer').value.trim();
+  if (userAnswer === "教頭先生") {
+    document.getElementById('quiz-screen').style.display = 'none';
+    document.getElementById('main-site').style.display = 'block';
+    alert("正解！サイトにアクセスできるよ。");
+  } else {
+    alert("違うよ、もう一度考えてみて！");
+  }
+}
+</script>
 
 </body>
 </html>
-
-
-
-
-
