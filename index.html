@@ -27,8 +27,7 @@
     }
 
     nav {
-      background: linear-gradient(135deg, #020617, #1e3a8a);
-;
+      background: linear-gradient(90deg, #374151, #111827);
       display: flex;
       justify-content: center;
       gap: 20px;
@@ -36,7 +35,7 @@
     }
 
     nav a {
-      color: white;
+      color: #f3f4f6;
       text-decoration: none;
       font-weight: bold;
     }
@@ -56,6 +55,28 @@
     section h2 {
       border-left: 6px solid #1e3a8a;
       padding-left: 10px;
+    }
+
+    /* 特集欄 */
+    .feature {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background: linear-gradient(135deg, #f9fafb, #e5e7eb);
+      border-radius: 12px;
+    }
+
+    .feature h2 {
+      border-left: 6px solid #2563eb;
+      padding-left: 10px;
+    }
+
+    .feature-box {
+      margin-top: 20px;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     }
 
     footer {
@@ -82,11 +103,24 @@
   <a href="#contact">お問い合わせ</a>
 </nav>
 
+<!-- 特集欄 -->
+<section class="feature">
+  <h2>特集</h2>
+
+  <div class="feature-box">
+    <h3>🔥 今月の特集</h3>
+    <p>
+      知識部の注目活動やおすすめ企画をピックアップ！
+      新しい取り組みや成果をまとめて紹介します。
+    </p>
+  </div>
+</section>
+
 <section id="about">
   <h2>知識部とは</h2>
   <p>
     知識部は、知識を共有し、新しいアイデアを生み出すことを目的とした係です。
-    幅広く活動しています
+    幅広く活動しています。
   </p>
 </section>
 
@@ -94,7 +128,7 @@
   <h2>お知らせ</h2>
   <ul>
     <li>2026/1/30　知識部 公式サイトを公開しました</li>
-    <li>2026/0/0  -更新用-</li>
+    <li>2026/0/0　更新予定</li>
   </ul>
 </section>
 
@@ -118,21 +152,14 @@
 <footer>
   © 2026 知識部 All Rights Reserved.
 </footer>
-  <!-- admax -->
+
+<!-- admax -->
 <script src="https://adm.shinobi.jp/s/782adfd062e5aa211fdbd57680e2e1d0"></script>
 <!-- admax -->
-  <!-- admax -->
+
+<!-- admax -->
 <script src="https://adm.shinobi.jp/s/5410512e20263ad8433f0160082fe2b4"></script>
 <!-- admax -->
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
