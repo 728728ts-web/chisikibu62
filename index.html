@@ -19,12 +19,12 @@
     color: var(--dark);
   }
 
-  /* --- クイズ画面（back1.pngを使用） --- */
+  /* --- クイズ画面（back1.jpgを使用） --- */
   #quiz-screen {
     position: fixed;
     top:0; left:0; width: 100%; height: 100%;
-    /* back1.png を背景に設定 */
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('back1.png');
+    /* 拡張子を .jpg に修正 */
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('back1.jpg');
     background-size: cover;
     background-position: center;
     color: white;
@@ -41,20 +41,22 @@
 
   #quiz-screen input {
     padding: 10px 15px; border-radius: 5px; border: none; font-size: 1rem;
+    outline: none;
   }
 
   #quiz-screen button {
     padding: 10px 20px; border-radius: 5px; border: none;
     background: var(--primary); color: white; cursor: pointer;
+    font-weight: bold;
   }
 
   /* --- メインサイト --- */
   #main-site { display: none; }
 
-  /* ヘッダー（back2.pngを使用） */
+  /* ヘッダー（back2.jpgを使用） */
   header {
-    /* back2.png を背景に設定 */
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back2.png');
+    /* 拡張子を .jpg に修正 */
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back2.jpg');
     background-size: cover;
     background-position: center;
     color: white; padding: 80px 20px; text-align: center;
@@ -78,7 +80,7 @@
     border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
   }
 
-  h2 { color: var(--primary); border-left: 5px solid var(--primary); padding-left: 15px; }
+  h2 { color: var(--primary); border-left: 5px solid var(--primary); padding-left: 15px; margin-top: 0; }
 
   .feature-card {
     background: #f1f5f9; padding: 20px; border-radius: 8px;
@@ -124,14 +126,14 @@
       <div class="feature-card">
         <h3>🔥 今月のピックアップ</h3>
         <p>新しいWebサイトの運用を開始しました！部員による最新情報をお届けします。</p>
-        <p style="font-size: 0.7rem;">※サイト維持のため広告が含まれる場合があります。</p>
+        <p style="font-size: 0.7rem; color: #64748b;">※サイト維持のため広告が含まれる場合があります。</p>
       </div>
     </section>
 
     <section id="news">
       <h2>お知らせ</h2>
       <p>・2026/01/30 サイト公開</p>
-      <p>・2026/02/02 デザインアップデート</p>
+      <p>・2026/02/02 デザインアップデート（背景画像対応）</p>
     </section>
 
     <section id="activity">
@@ -152,6 +154,7 @@
 <script>
 function checkAnswer() {
   const userAnswer = document.getElementById('answer').value.trim();
+  // 全角・半角どちらでも通るように、必要ならここを調整してね
   if (userAnswer === "教頭先生") {
     document.getElementById('quiz-screen').style.display = 'none';
     document.getElementById('main-site').style.display = 'block';
