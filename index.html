@@ -2,10 +2,11 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>情報発信局</title>
+<title>知識部 発信局</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link rel="icon" href="icon.ico">
-  
+
 <style>
   :root {
     --primary: #2563eb;
@@ -21,56 +22,47 @@
     color: var(--dark);
   }
 
-  /* --- クイズ画面（back1.jpgを使用） --- */
+  /* --- ログイン画面（back1.jpg / 暗め半透明） --- */
   #quiz-screen {
     position: fixed;
     top:0; left:0; width: 100%; height: 100%;
-    /* 拡張子を .jpg に修正 */
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('back1.jpg');
-    background-size: cover;
-    background-position: center;
-    color: white;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('back1.jpg') no-repeat center center / cover;
     display: flex; justify-content: center; align-items: center;
     flex-direction: column; z-index: 9999;
   }
 
   .quiz-box {
-    background: rgba(255,255,255,0.15);
+    background: rgba(0, 0, 0, 0.75);
     padding: 30px; border-radius: 15px;
-    backdrop-filter: blur(8px);
-    text-align: center; border: 1px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(10px);
+    text-align: center; border: 1px solid rgba(255,255,255,0.2);
+    width: 85%; max-width: 400px; color: white;
   }
 
   #quiz-screen input {
-    padding: 10px 15px; border-radius: 5px; border: none; font-size: 1rem;
-    outline: none;
+    padding: 12px; border-radius: 5px; border: none; font-size: 1rem;
+    outline: none; width: 70%; margin-bottom: 15px;
   }
 
   #quiz-screen button {
-    padding: 10px 20px; border-radius: 5px; border: none;
-    background: var(--primary); color: white; cursor: pointer;
-    font-weight: bold;
+    padding: 12px 25px; border-radius: 5px; border: none;
+    background: var(--primary); color: white; cursor: pointer; font-weight: bold;
   }
 
-  /* --- メインサイト --- */
+  /* --- メインサイト（ログイン後表示） --- */
   #main-site { display: none; }
 
-  /* ヘッダー（back2.jpgを使用） */
   header {
-    /* 拡張子を .jpg に修正 */
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back2.jpg');
-    background-size: cover;
-    background-position: center;
-    color: white; padding: 80px 20px; text-align: center;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back2.jpg') no-repeat center center / cover;
+    color: white; padding: 100px 20px; text-align: center;
   }
 
-  header h1 { font-size: 3rem; margin: 0; letter-spacing: 4px; }
-  header p { font-size: 1.2rem; opacity: 0.9; }
+  header h1 { font-size: 3.5rem; margin: 0; letter-spacing: 4px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
 
   nav {
-    background: rgba(15, 23, 42, 0.9); position: sticky; top: 0;
+    background: rgba(15, 23, 42, 0.95); position: sticky; top: 0;
     display: flex; justify-content: center; gap: 20px;
-    padding: 12px 0; z-index: 100;
+    padding: 15px 0; z-index: 100;
   }
 
   nav a { color: white; text-decoration: none; font-size: 0.9rem; font-weight: bold; }
@@ -84,12 +76,17 @@
 
   h2 { color: var(--primary); border-left: 5px solid var(--primary); padding-left: 15px; margin-top: 0; }
 
-  .feature-card {
-    background: #f1f5f9; padding: 20px; border-radius: 8px;
+  /* カウンター表示エリア */
+  .counter-area {
+    margin: 20px 0;
+    padding: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    display: inline-block;
   }
 
   footer {
-    text-align: center; padding: 30px; background: var(--dark); color: #94a3b8;
+    text-align: center; padding: 40px 20px; background: var(--dark); color: #94a3b8;
   }
 </style>
 </head>
@@ -97,25 +94,25 @@
 
 <div id="quiz-screen">
   <div class="quiz-box">
-    <h2>KNOWLEDGE CLUB</h2>
+    <h2 style="color: #60a5fa; margin-top: 0;">KNOWLEDGE CLUB</h2>
     <p>質問: 6-2の社会の担当の先生は？</p>
     <input type="text" id="answer" placeholder="答えを入力">
+    <br>
     <button onclick="checkAnswer()">ENTER</button>
-    <p style="font-size: 0.8rem; margin-top: 15px; color: #cbd5e1;">Hint: 〇〇先生（2文字）</p>
+    <p style="font-size: 0.8rem; margin-top: 15px; color: #94a3b8;">Hint: 〇〇先生（2文字）</p>
   </div>
 </div>
 
 <div id="main-site">
   <header>
-    <h1>情報発信局</h1>
-    <p>発信局 公式ポータル</p>
+    <h1>発信局</h1>
+    <p>知識部 公式ポータル</p>
   </header>
 
   <nav>
     <a href="#about">ABOUT</a>
     <a href="#news">NEWS</a>
     <a href="#activity">ACTIVITY</a>
-    <a href="#contact">CONTACT</a>
   </nav>
 
   <div class="container">
@@ -124,48 +121,47 @@
       <p>知識を共有し、新しいアイデアを形にするクリエイティブ・チームです。</p>
     </section>
 
-    <section class="feature">
-      <div class="feature-card">
-        <h3>🔥 今月のピックアップ</h3>
-        <p>新しいWebサイトの運用を開始しました！部員による最新情報をお届けします。</p>
-        <p style="font-size: 0.7rem; color: #64748b;">※サイト維持のため広告が含まれる場合があります。</p>
-      </div>
-    </section>
-
     <section id="news">
       <h2>お知らせ</h2>
-      <p>・2026/01/30 サイト公開</p>
-      <p>・2026/02/02 デザインアップデート（背景画像対応）</p>
-    </section>
-
-    <section id="activity">
-      <h2>主な活動</h2>
-      <ul>
-        <li>Webサイト制作・運営</li>
-        <li>プログラミング学習</li>
-        <li>校内イベントの動画編集</li>
-      </ul>
+      <p>・2026/02/02 アクセスカウンターを設置しました</p>
+      <p>・2026/01/30 知識部 発信局 公開</p>
     </section>
   </div>
 
   <footer>
-    &copy; 2026 知識部 発信局
+    <div class="counter-area">
+      <p style="font-size: 0.7rem; margin-bottom: 10px; color: #94a3b8;">TOTAL ACCESS</p>
+      <table border="0" cellspacing="0" cellpadding="0" style="margin: 0 auto;">
+        <tr>
+          <td align="center">
+            <a href="http://www.rays-counter.com/">
+              <img src="http://www.rays-counter.com/d1305_f6_022/697ff14073f10/" alt="アクセスカウンター" border="0">
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td align="center">
+            <img src="http://www.rays-counter.com/images/counter_01.gif" border="0"><img src="http://www.rays-counter.com/images/counter_02.gif" border="0"><img src="http://www.rays-counter.com/images/counter_03.gif" border="0" alt=""><img src="http://www.rays-counter.com/images/counter_04.gif" border="0"><img src="http://www.rays-counter.com/images/counter_05.gif" border="0">
+          </td>
+        </tr>
+      </table>
+    </div>
+    
+    <p style="margin-top: 20px;">&copy; 2026 知識部 発信局</p>
   </footer>
 </div>
 
 <script>
 function checkAnswer() {
   const userAnswer = document.getElementById('answer').value.trim();
-  // 全角・半角どちらでも通るように、必要ならここを調整してね
   if (userAnswer === "教頭先生") {
     document.getElementById('quiz-screen').style.display = 'none';
     document.getElementById('main-site').style.display = 'block';
   } else {
-    alert("答えが違います。");
+    alert("答えが違うみたいだよ！");
   }
 }
 </script>
 
 </body>
 </html>
-
