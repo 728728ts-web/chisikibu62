@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>知識部 | Knowledge Club Official</title>
+<title>知識部 発信局</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
   :root {
@@ -14,98 +14,78 @@
 
   body {
     margin: 0;
-    font-family: 'Helvetica Neue', Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
     background: var(--bg);
     color: var(--dark);
-    line-height: 1.6;
   }
 
-  /* クイズ画面 - より洗練された印象に */
+  /* --- クイズ画面（back1.pngを使用） --- */
   #quiz-screen {
     position: fixed;
     top:0; left:0; width: 100%; height: 100%;
-    background: radial-gradient(circle at center, #1e293b, #0f172a);
+    /* back1.png を背景に設定 */
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('back1.png');
+    background-size: cover;
+    background-position: center;
     color: white;
     display: flex; justify-content: center; align-items: center;
     flex-direction: column; z-index: 9999;
-    transition: opacity 0.5s ease;
   }
 
   .quiz-box {
-    background: rgba(255,255,255,0.1);
-    padding: 40px; border-radius: 20px;
-    backdrop-filter: blur(10px);
-    text-align: center; border: 1px solid rgba(255,255,255,0.2);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    background: rgba(255,255,255,0.15);
+    padding: 30px; border-radius: 15px;
+    backdrop-filter: blur(8px);
+    text-align: center; border: 1px solid rgba(255,255,255,0.3);
   }
 
-  input[type="text"] {
-    padding: 12px 20px; border-radius: 25px; border: none;
-    outline: none; width: 200px; font-size: 1rem;
+  #quiz-screen input {
+    padding: 10px 15px; border-radius: 5px; border: none; font-size: 1rem;
   }
 
   #quiz-screen button {
-    padding: 12px 30px; border-radius: 25px; border: none;
-    background: var(--primary); color: white; font-weight: bold;
-    cursor: pointer; margin-left: 10px; transition: 0.3s;
+    padding: 10px 20px; border-radius: 5px; border: none;
+    background: var(--primary); color: white; cursor: pointer;
   }
 
-  #quiz-screen button:hover { background: #1d4ed8; transform: scale(1.05); }
-
-  /* メインサイト */
+  /* --- メインサイト --- */
   #main-site { display: none; }
 
+  /* ヘッダー（back2.pngを使用） */
   header {
-    background: var(--dark);
-    color: white; padding: 60px 20px; text-align: center;
-    background-image: linear-gradient(rgba(15,23,42,0.8), rgba(15,23,42,0.8)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1000');
-    background-size: cover; background-position: center;
+    /* back2.png を背景に設定 */
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back2.png');
+    background-size: cover;
+    background-position: center;
+    color: white; padding: 80px 20px; text-align: center;
   }
 
-  header h1 { font-size: 2.5rem; margin-bottom: 10px; letter-spacing: 2px; }
+  header h1 { font-size: 3rem; margin: 0; letter-spacing: 4px; }
+  header p { font-size: 1.2rem; opacity: 0.9; }
 
   nav {
-    background: white; position: sticky; top: 0;
+    background: rgba(15, 23, 42, 0.9); position: sticky; top: 0;
     display: flex; justify-content: center; gap: 20px;
-    padding: 15px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 100;
+    padding: 12px 0; z-index: 100;
   }
 
-  nav a {
-    color: var(--dark); text-decoration: none; font-weight: 600;
-    font-size: 0.9rem; transition: 0.3s;
-  }
+  nav a { color: white; text-decoration: none; font-size: 0.9rem; font-weight: bold; }
 
-  nav a:hover { color: var(--primary); }
-
-  .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+  .container { max-width: 800px; margin: 20px auto; padding: 0 20px; }
 
   section {
-    background: var(--card); margin: 30px 0; padding: 30px;
-    border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    background: var(--card); margin-bottom: 20px; padding: 25px;
+    border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
   }
 
-  h2 {
-    color: var(--primary); font-size: 1.5rem;
-    display: flex; align-items: center; gap: 10px;
-    margin-top: 0;
-  }
-
-  h2::before {
-    content: ''; display: inline-block; width: 4px; height: 24px;
-    background: var(--primary); border-radius: 2px;
-  }
+  h2 { color: var(--primary); border-left: 5px solid var(--primary); padding-left: 15px; }
 
   .feature-card {
-    background: linear-gradient(135deg, #eff6ff, #dbeafe);
-    padding: 20px; border-radius: 12px; border-left: 5px solid var(--primary);
+    background: #f1f5f9; padding: 20px; border-radius: 8px;
   }
 
-  ul { padding-left: 20px; }
-  li { margin-bottom: 10px; }
-
   footer {
-    text-align: center; padding: 40px; background: var(--dark);
-    color: #94a3b8; font-size: 0.8rem;
+    text-align: center; padding: 30px; background: var(--dark); color: #94a3b8;
   }
 </style>
 </head>
@@ -113,20 +93,18 @@
 
 <div id="quiz-screen">
   <div class="quiz-box">
-    <h2>GATE ACCESS</h2>
+    <h2>KNOWLEDGE CLUB</h2>
     <p>質問: 6-2の社会の担当の先生は？</p>
-    <div style="margin: 20px 0;">
-      <input type="text" id="answer" placeholder="答えを入力...">
-      <button onclick="checkAnswer()">ENTER</button>
-    </div>
-    <div id="hint">Hint: 〇〇先生（2文字）</div>
+    <input type="text" id="answer" placeholder="答えを入力">
+    <button onclick="checkAnswer()">ENTER</button>
+    <p style="font-size: 0.8rem; margin-top: 15px; color: #cbd5e1;">Hint: 〇〇先生（2文字）</p>
   </div>
 </div>
 
 <div id="main-site">
   <header>
-    <h1>知識部</h1>
-    <p>Experience × Knowledge × Creation</p>
+    <h1>発信局</h1>
+    <p>知識部 公式ポータル</p>
   </header>
 
   <nav>
@@ -137,46 +115,37 @@
   </nav>
 
   <div class="container">
-    <section class="feature">
-      <h2>PICK UP</h2>
-      <div class="feature-card">
-        <h3>🔥 今月の特集</h3>
-        <p>知識部の注目活動やおすすめ企画をピックアップ！新しい取り組みや成果をまとめて紹介します。</p>
-        <p style="font-size: 0.8rem; color: #64748b;">※ サイトがまだ完全ではないので予期せぬエラーが発生する可能性があります。</p>
-      </div>
-    </section>
-
     <section id="about">
       <h2>知識部とは</h2>
-      <p>知識部は、情報の共有と新しいアイデアの創造を目的としたクリエイティブ・チームです。デジタルの力を活用し、学校生活をもっと面白くする活動を行っています。</p>
+      <p>知識を共有し、新しいアイデアを形にするクリエイティブ・チームです。</p>
+    </section>
+
+    <section class="feature">
+      <div class="feature-card">
+        <h3>🔥 今月のピックアップ</h3>
+        <p>新しいWebサイトの運用を開始しました！部員による最新情報をお届けします。</p>
+        <p style="font-size: 0.7rem;">※サイト維持のため広告が含まれる場合があります。</p>
+      </div>
     </section>
 
     <section id="news">
       <h2>お知らせ</h2>
-      <ul>
-        <li><strong>2026/01/30</strong> 知識部 公式サイトを公開</li>
-        <li><strong>2026/02/02</strong> 大規模デザイン更新</li>
-      </ul>
+      <p>・2026/01/30 サイト公開</p>
+      <p>・2026/02/02 デザインアップデート</p>
     </section>
 
     <section id="activity">
-      <h2>活動内容</h2>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-        <div>💻 プログラミング</div>
-        <div>🎬 動画編集</div>
-        <div>📅 企画・運営</div>
-        <div>📢 情報発信</div>
-      </div>
-    </section>
-
-    <section id="contact">
-      <h2>お問い合わせ</h2>
-      <p>入部希望や質問は、お近くの部員まで直接声をかけてください！</p>
+      <h2>主な活動</h2>
+      <ul>
+        <li>Webサイト制作・運営</li>
+        <li>プログラミング学習</li>
+        <li>校内イベントの動画編集</li>
+      </ul>
     </section>
   </div>
 
   <footer>
-    &copy; 2026 KNOWLEDGE CLUB. All Rights Reserved.
+    &copy; 2026 知識部 発信局
   </footer>
 </div>
 
@@ -184,19 +153,13 @@
 function checkAnswer() {
   const userAnswer = document.getElementById('answer').value.trim();
   if (userAnswer === "教頭先生") {
-    const screen = document.getElementById('quiz-screen');
-    screen.style.opacity = '0';
-    setTimeout(() => {
-      screen.style.display = 'none';
-      document.getElementById('main-site').style.display = 'block';
-    }, 500);
+    document.getElementById('quiz-screen').style.display = 'none';
+    document.getElementById('main-site').style.display = 'block';
   } else {
-    alert("アクセス権限がありません。");
+    alert("答えが違います。");
   }
 }
 </script>
 
 </body>
 </html>
-
-
