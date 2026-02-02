@@ -1,20 +1,149 @@
-// ページが読み込まれた時に実行
-window.onload = function() {
-  // 保存されているカウントを取得
-  let count = localStorage.getItem('access_count');
-  
-  if (count === null) {
-    count = 1; // 初めての訪問
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>知識部 発信局</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="icon" href="icon.ico">
+
+<style>
+  :root {
+    --primary: #2563eb;
+    --dark: #0f172a;
+    --bg: #f8fafc;
+    --card: #ffffff;
+  }
+
+  body {
+    margin: 0;
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+  }
+
+  /* --- クイズ画面（自動リサイズ設定 & 暗め半透明） --- */
+  #quiz-screen {
+    position: fixed;
+    top:0; left:0; width: 100%; height: 100%;
+    /* 背景画像を画面いっぱいに広げて中央に合わせる設定 */
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('back1.jpg') no-repeat center center;
+    background-size: cover; 
+    color: white;
+    display: flex; justify-content: center; align-items: center;
+    flex-direction: column; z-index: 9999;
+  }
+
+  .quiz-box {
+    /* 白い半透明から、見やすい「黒い半透明」に変更！ */
+    background: rgba(0, 0, 0, 0.7); 
+    padding: 30px; border-radius: 15px;
+    backdrop-filter: blur(10px); /* 背景を少しぼかして高級感を出す */
+    text-align: center; 
+    border: 1px solid rgba(255,255,255,0.2);
+    width: 85%;
+    max-width: 400px;
+  }
+
+  #quiz-screen input {
+    padding: 12px; border-radius: 5px; border: none; font-size: 1rem;
+    outline: none; width: 70%; margin-bottom: 10px;
+  }
+
+  #quiz-screen button {
+    padding: 12px 20px; border-radius: 5px; border: none;
+    background: var(--primary); color: white; cursor: pointer;
+    font-weight: bold;
+  }
+
+  /* --- メインサイト --- */
+  #main-site { display: none; }
+
+  /* ヘッダーの背景も自動リサイズ */
+  header {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back2.jpg') no-repeat center center;
+    background-size: cover;
+    color: white; padding: 100px 20px; text-align: center;
+  }
+
+  header h1 { font-size: 3.5rem; margin: 0; letter-spacing: 4px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+  header p { font-size: 1.2rem; opacity: 0.9; }
+
+  nav {
+    background: rgba(15, 23, 42, 0.95); position: sticky; top: 0;
+    display: flex; justify-content: center; gap: 20px;
+    padding: 15px 0; z-index: 100;
+  }
+
+  nav a { color: white; text-decoration: none; font-size: 0.9rem; font-weight: bold; }
+
+  .container { max-width: 800px; margin: 20px auto; padding: 0 20px; }
+
+  section {
+    background: var(--card); margin-bottom: 20px; padding: 25px;
+    border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  }
+
+  h2 { color: var(--primary); border-left: 5px solid var(--primary); padding-left: 15px; margin-top: 0; }
+
+  footer {
+    text-align: center; padding: 30px; background: var(--dark); color: #94a3b8;
+  }
+</style>
+</head>
+<body>
+
+<div id="quiz-screen">
+  <div class="quiz-box">
+    <h2 style="color: #60a5fa; margin-top: 0;">KNOWLEDGE CLUB</h2>
+    <p>質問: 6-2の社会の担当の先生は？</p>
+    <input type="text" id="answer" placeholder="答えを入力">
+    <button onclick="checkAnswer()">ENTER</button>
+    <p style="font-size: 0.8rem; margin-top: 15px; color: #94a3b8;">Hint: 〇〇先生（2文字）</p>
+  </div>
+</div>
+
+<div id="main-site">
+  <header>
+    <h1>発信局</h1>
+    <p>知識部 公式ポータル</p>
+  </header>
+
+  <nav>
+    <a href="#about">ABOUT</a>
+    <a href="#news">NEWS</a>
+    <a href="#activity">ACTIVITY</a>
+  </nav>
+
+  <div class="container">
+    <section id="about">
+      <h2>知識部とは</h2>
+      <p>知識を共有し、新しいアイデアを形にするクリエイティブ・チームです。現在はAndroid開発やWeb制作に興味を持って活動中！（iPhone 6s/7も現役！）</p>
+    </section>
+
+    <section id="news">
+      <h2>お知らせ</h2>
+      <p>・2026/02/02 サイトデザインを黒ベースにアップデート</p>
+      <p>・2026/01/30 公式サイト公開</p>
+    </section>
+  </div>
+
+  <footer>
+    &copy; 2026 知識部 発信局
+  </footer>
+</div>
+
+<script>
+function checkAnswer() {
+  const userAnswer = document.getElementById('answer').value.trim();
+  if (userAnswer === "教頭先生") {
+    document.getElementById('quiz-screen').style.display = 'none';
+    document.getElementById('main-site').style.display = 'block';
   } else {
-    count = parseInt(count) + 1; // 2回目以降
+    alert("答えが違うみたいだよ！");
   }
-  
-  // 数字を保存する
-  localStorage.setItem('access_count', count);
-  
-  // 画面に表示する
-  const display = document.getElementById('access-count');
-  if (display) {
-    display.innerText = count;
-  }
-};
+}
+</script>
+
+</body>
+</html>
