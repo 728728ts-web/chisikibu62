@@ -157,8 +157,10 @@
 <script>
 function checkAnswer() {
   const userAnswer = document.getElementById('answer').value.trim();
-  // 全角・半角どちらでも通るように、必要ならここを調整してね
-  if (userAnswer === "教頭先生") {
+
+  const correctAnswers = ["教頭先生", "t","z"];
+
+  if (correctAnswers.includes(userAnswer)) {
     document.getElementById('quiz-screen').style.display = 'none';
     document.getElementById('main-site').style.display = 'block';
   } else {
@@ -169,6 +171,7 @@ function checkAnswer() {
 
 </body>
 </html>
+
 
 
 
