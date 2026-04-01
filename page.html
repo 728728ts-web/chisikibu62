@@ -1,213 +1,287 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<div id="overlay"></div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知識部 発信局</title>
 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BDGN44J2DC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-BDGN44J2DC');
+    </script>
 
-<meta charset="UTF-8">
-<title>知識部 発信局</title>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BDGN44J2DC"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script>
+        if (sessionStorage.getItem("auth") !== "ok") {
+            location.href = "index.html";
+        } else {
+            // 1回通ったら無効化（再利用防止）
+            sessionStorage.removeItem("auth");
+        }
+    </script>
 
-  gtag('config', 'G-BDGN44J2DC');
-</script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>
-if(sessionStorage.getItem("auth") !== "ok"){
-  location.href = "index.html";
-} else {
-  // 1回通ったら無効化（再利用防止）
-  sessionStorage.removeItem("auth");
-}
-</script>
-<style>
-  :root {
-    --primary: #2563eb;
-    --dark: #0f172a;
-    --bg: #f8fafc;
-    --card: #ffffff;
-  }
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #0f172a;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text-muted: #64748b;
+        }
 
-  body {
-    margin: 0;
-    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
-    background: var(--bg);
-    color: var(--dark);
-  }
+        body {
+            margin: 0;
+            font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+            background: var(--bg);
+            color: var(--dark);
+            line-height: 1.6;
+        }
 
-  /* --- クイズ画面（back1.jpgを使用） --- */
-  #quiz-screen {
-    position: fixed;
-    top:0; left:0; width: 100%; height: 100%;
-    /* 拡張子を .jpg に修正 */
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('back1.jpg');
-    background-size: cover;
-    background-position: center;
-    color: white;
-    display: flex; justify-content: center; align-items: center;
-    flex-direction: column; z-index: 9999;
-  }
+        /* --- クイズ画面 --- */
+        #quiz-screen {
+            position: fixed;
+            top: 0; left: 0; 
+            width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('back1.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            flex-direction: column; 
+            z-index: 9999;
+        }
 
-  .quiz-box {
-    background: rgba(255,255,255,0.15);
-    padding: 30px; border-radius: 15px;
-    backdrop-filter: blur(8px);
-    text-align: center; border: 1px solid rgba(255,255,255,0.3);
-  }
+        .quiz-box {
+            background: rgba(255,255,255,0.15);
+            padding: 30px; 
+            border-radius: 15px;
+            backdrop-filter: blur(8px);
+            text-align: center; 
+            border: 1px solid rgba(255,255,255,0.3);
+            max-width: 90%;
+        }
 
-  #quiz-screen input {
-    padding: 10px 15px; border-radius: 5px; border: none; font-size: 1rem;
-    outline: none;
-  }
+        .quiz-box h2 {
+            color: white;
+            border: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
 
-  #quiz-screen button {
-    padding: 10px 20px; border-radius: 5px; border: none;
-    background: var(--primary); color: white; cursor: pointer;
-    font-weight: bold;
-  }
+        #quiz-screen input {
+            padding: 10px 15px; 
+            border-radius: 5px; 
+            border: none; 
+            font-size: 1rem;
+            outline: none;
+            width: 200px;
+            margin-bottom: 10px;
+        }
 
-  /* --- メインサイト --- */
-  #main-site { display: none; }
+        #quiz-screen button {
+            padding: 10px 20px; 
+            border-radius: 5px; 
+            border: none;
+            background: var(--primary); 
+            color: white; 
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
 
-  /* ヘッダー（back2.jpgを使用） */
-  header {
-    /* 拡張子を .jpg に修正 */
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back2.jpg');
-    background-size: cover;
-    background-position: center;
-    color: white; padding: 80px 20px; text-align: center;
-  }
+        #quiz-screen button:hover {
+            background: #1d4ed8;
+        }
 
-  header h1 { font-size: 3rem; margin: 0; letter-spacing: 4px; }
-  header p { font-size: 1.2rem; opacity: 0.9; }
+        /* --- メインサイト --- */
+        #main-site { display: none; }
 
-  nav {
-    background: rgba(15, 23, 42, 0.9); position: sticky; top: 0;
-    display: flex; justify-content: center; gap: 20px;
-    padding: 12px 0; z-index: 100;
-  }
+        header {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back2.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white; 
+            padding: 80px 20px; 
+            text-align: center;
+        }
 
-  nav a { color: white; text-decoration: none; font-size: 0.9rem; font-weight: bold; }
+        header h1 { font-size: 3rem; margin: 0; letter-spacing: 4px; }
+        header p { font-size: 1.2rem; opacity: 0.9; }
 
-  .container { max-width: 800px; margin: 20px auto; padding: 0 20px; }
+        nav {
+            background: rgba(15, 23, 42, 0.9); 
+            position: sticky; 
+            top: 0;
+            display: flex; 
+            justify-content: center; 
+            gap: 20px;
+            padding: 12px 0; 
+            z-index: 100;
+        }
 
-  section {
-    background: var(--card); margin-bottom: 20px; padding: 25px;
-    border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-  }
+        nav a { 
+            color: white; 
+            text-decoration: none; 
+            font-size: 0.9rem; 
+            font-weight: bold; 
+        }
 
-  h2 { color: var(--primary); border-left: 5px solid var(--primary); padding-left: 15px; margin-top: 0; }
+        .container { max-width: 800px; margin: 20px auto; padding: 0 20px; }
 
-  .feature-card {
-    background: #f1f5f9; padding: 20px; border-radius: 8px;
-  }
+        section {
+            background: var(--card); 
+            margin-bottom: 20px; 
+            padding: 25px;
+            border-radius: 12px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
 
-  footer {
-    text-align: center; padding: 30px; background: var(--dark); color: #94a3b8;
-  }
-</style>
+        h2 { 
+            color: var(--primary); 
+            border-left: 5px solid var(--primary); 
+            padding-left: 15px; 
+            margin-top: 0; 
+        }
+
+        .feature-card {
+            background: #f1f5f9; 
+            padding: 20px; 
+            border-radius: 8px;
+        }
+
+        .video-container {
+            position: relative; 
+            width: 100%; 
+            padding-top: 56.25%; 
+            margin: 20px 0;
+        }
+
+        .video-container iframe {
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%;
+        }
+
+        .meta-text {
+            font-size: 0.7rem; 
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        footer {
+            text-align: center; 
+            padding: 30px; 
+            background: var(--dark); 
+            color: #94a3b8;
+        }
+    </style>
 </head>
 <body>
 
+<div id="overlay"></div>
+
 <div id="quiz-screen">
-  <div class="quiz-box">
-    <h2>知識部アクセス</h2>
-    <p>質問: 6-2の社会の担当の先生は？</p>
-    <input type="text" id="answer" placeholder="答えを入力">
-    <button onclick="checkAnswer()">ENTER</button>
-    <p style="font-size: 0.8rem; margin-top: 15px; color: #cbd5e1;">Hint: 〇〇先生（合計4文字）</p>
-  </div>
+    <div class="quiz-box">
+        <h2>知識部アクセス</h2>
+        <p>質問: 6-2の社会の担当の先生は？</p>
+        <input type="text" id="answer" placeholder="答えを入力" onkeypress="if(event.key==='Enter') checkAnswer()">
+        <button onclick="checkAnswer()">ENTER</button>
+        <p style="font-size: 0.8rem; margin-top: 15px; color: #cbd5e1;">Hint: 〇〇先生（合計4文字）</p>
+    </div>
 </div>
 
 <div id="main-site">
-  <header>
-    <h1>発信局</h1>
-    <p>知識部 公式ポータル</p>
-  </header>
+    <header>
+        <h1>発信局</h1>
+        <p>知識部 公式ポータル</p>
+    </header>
 
+    <nav>
+        <a href="#about">ABOUT</a>
+        <a href="#news">NEWS</a>
+        <a href="#activity">ACTIVITY</a>
+        <a href="#contact">CONTACT</a>
+    </nav>
 
-  <nav>
-    <a href="#about">ABOUT</a>
-    <a href="#news">NEWS</a>
-    <a href="#activity">ACTIVITY</a>
-    <a href="#contact">CONTACT</a>
-  </nav>
-  <p>access↓</p>
-  <img src="http://www5.kannet.ne.jp/~counter/count.cgi?name=c62dayo&type=15&width=4">
+    <div class="container">
+        <div style="text-align: center; margin: 10px 0;">
+            <p style="margin-bottom: 5px;">access↓</p>
+            <img src="http://www5.kannet.ne.jp/~counter/count.cgi?name=c62dayo&type=15&width=4" alt="counter">
+        </div>
 
-  <div class="container">
-    <section id="about">
-      <h2>知識部とは</h2>
-      <p>知識を共有し、新しいアイデアを形にするクリエイティブ・チームです。</p>
-    </section>
+        <section id="about">
+            <h2>知識部とは</h2>
+            <p>知識を共有し、新しいアイデアを形にするクリエイティブ・チームです。</p>
+        </section>
 
-    <section class="feature">
-      <div class="feature-card">
-        <h3>🔥 今月のピックアップ</h3>
-        <p>新しいWebサイトの運用を開始しました！部員による最新情報をお届けします。</p>
-        <p>一年間、本当にありがとう。</p>笑った日もぶつかった日も何気ない毎日もすべてがかけがえのない宝物です。</p>この教室で過ごした時間をずっと忘れません。</p>どこにいてもこのクラスで出会えた奇跡に感謝します。</p>6-2 forever.</p>
-        <p style="font-size: 0.7rem; color: #64748b;">動画アーカイブです。限定公開のためリンク等が漏れないようにお願いいたします。このリンクを知っている方のみ、ご覧いただけます</p>
-        <div style="max-width:800px; margin:auto;">
-  <div style="position:relative; width:100%; padding-top:56.25%;">
-    <iframe
-      src="https://www.youtube.com/embed/sOZKqNGfTuw"
-      style="position:absolute; top:0; left:0; width:100%; height:100%;"
-      frameborder="0"
-      allowfullscreen>
-    </iframe>
-  </div>
-</div>
-      
-        <p style="font-size: 0.7rem; color: #64748b;">※サイト維持のため広告が含まれる場合があります。</p>
-      </div>
-    </section>
+        <section class="feature">
+            <div class="feature-card">
+                <h3>🔥 今月のピックアップ</h3>
+                <p>新しいWebサイトの運用を開始しました！部員による最新情報をお届けします。</p>
+                
+                <div style="margin: 20px 0; border-top: 1px solid #ddd; padding-top: 10px;">
+                    <p>一年間、本当にありがとう。</p>
+                    <p>笑った日もぶつかった日も何気ない毎日もすべてがかけがえのない宝物です。</p>
+                    <p>この教室で過ごした時間をずっと忘れません。</p>
+                    <p>どこにいてもこのクラスで出会えた奇跡に感謝します。</p>
+                    <p><strong>6-2 forever.</strong></p>
+                </div>
 
-    <section id="news">
-      <h2>お知らせ</h2>
-      <p>・2026/01/30 サイト公開</p>
-      <p>・2026/02/02 デザインアップデート（背景画像対応）</p>
-    </section>
+                <p class="meta-text">動画アーカイブです。限定公開のためリンク等が漏れないようにお願いいたします。このリンクを知っている方のみ、ご覧いただけます</p>
+                
+                <div class="video-container">
+                    <iframe
+                        src="https://www.youtube.com/embed/sOZKqNGfTuw"
+                        frameborder="0"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                
+                <p class="meta-text">※サイト維持のため広告が含まれる場合があります。</p>
+            </div>
+        </section>
 
-    <section id="activity">
-      <h2>主な活動</h2>
-      <ul>
-        <li>Webサイト制作・運営</li>
-        <li>プログラミング学習</li>
-        <li>校内イベントの動画編集</li>
-      </ul>
-    </section>
-  </div>
+        <section id="news">
+            <h2>お知らせ</h2>
+            <p>・2026/01/30 サイト公開</p>
+            <p>・2026/02/02 デザインアップデート（背景画像対応）</p>
+        </section>
 
-  <footer>
-    &copy; 2026 知識部 発信局
-  </footer>
+        <section id="activity">
+            <h2>主な活動</h2>
+            <ul>
+                <li>Webサイト制作・運営</li>
+                <li>プログラミング学習</li>
+                <li>校内イベントの動画編集</li>
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        &copy; 2026 知識部 発信局
+    </footer>
 </div>
 
 <script>
 function checkAnswer() {
-  const userAnswer = document.getElementById('answer').value.trim();
+    const userAnswer = document.getElementById('answer').value.trim();
+    // 正解リスト
+    const correctAnswers = ["教頭先生", "t", "z"];
 
-  const correctAnswers = ["教頭先生", "t","z"];
-
-  if (correctAnswers.includes(userAnswer)) {
-    document.getElementById('quiz-screen').style.display = 'none';
-    document.getElementById('main-site').style.display = 'block';
-  } else {
-    alert("答えが違います。");
-  }
+    if (correctAnswers.includes(userAnswer)) {
+        document.getElementById('quiz-screen').style.display = 'none';
+        document.getElementById('main-site').style.display = 'block';
+        // ログイン成功時に一番上へスクロール
+        window.scrollTo(0, 0);
+    } else {
+        alert("答えが違います。");
+    }
 }
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
