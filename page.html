@@ -17,18 +17,19 @@
         if (sessionStorage.getItem("auth") !== "ok") {
             location.href = "index.html";
         } else {
-            // 1回通ったら無効化（再利用防止）
+            // セキュリティのため、一度通ったら認証キーを削除
             sessionStorage.removeItem("auth");
         }
     </script>
 
     <style>
+        /* 【デザイン】色の設定（ここを変えると全体の雰囲気が変わる） */
         :root {
-            --primary: #2563eb;
-            --dark: #0f172a;
-            --bg: #f8fafc;
-            --card: #ffffff;
-            --text-muted: #64748b;
+            --primary: #2563eb;    /* メインの青色 */
+            --dark: #0f172a;       /* 背景の濃い色 */
+            --bg: #f8fafc;         /* 全体の背景色 */
+            --card: #ffffff;       /* カードの背景色 */
+            --text-muted: #64748b; /* 補足説明などの薄い文字色 */
         }
 
         body {
@@ -39,145 +40,85 @@
             line-height: 1.6;
         }
 
-        /* --- クイズ画面 --- */
+        /* --- クイズ画面のスタイル --- */
         #quiz-screen {
             position: fixed;
-            top: 0; left: 0; 
-            width: 100%; height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* 【画像】クイズ画面の背景画像（back1.jpg） */
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('back1.jpg');
             background-size: cover;
             background-position: center;
             color: white;
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            flex-direction: column; 
-            z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            flex-direction: column; z-index: 9999;
         }
 
         .quiz-box {
             background: rgba(255,255,255,0.15);
-            padding: 30px; 
-            border-radius: 15px;
+            padding: 30px; border-radius: 15px;
             backdrop-filter: blur(8px);
-            text-align: center; 
-            border: 1px solid rgba(255,255,255,0.3);
+            text-align: center; border: 1px solid rgba(255,255,255,0.3);
             max-width: 90%;
         }
 
-        .quiz-box h2 {
-            color: white;
-            border: none;
-            padding: 0;
-            margin-bottom: 20px;
-        }
+        .quiz-box h2 { color: white; border: none; padding: 0; margin-bottom: 20px; }
 
         #quiz-screen input {
-            padding: 10px 15px; 
-            border-radius: 5px; 
-            border: none; 
-            font-size: 1rem;
-            outline: none;
-            width: 200px;
-            margin-bottom: 10px;
+            padding: 10px 15px; border-radius: 5px; border: none; font-size: 1rem;
+            outline: none; width: 200px; margin-bottom: 10px;
         }
 
         #quiz-screen button {
-            padding: 10px 20px; 
-            border-radius: 5px; 
-            border: none;
-            background: var(--primary); 
-            color: white; 
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.3s;
+            padding: 10px 20px; border-radius: 5px; border: none;
+            background: var(--primary); color: white; cursor: pointer;
+            font-weight: bold; transition: background 0.3s;
         }
 
-        #quiz-screen button:hover {
-            background: #1d4ed8;
-        }
+        #quiz-screen button:hover { background: #1d4ed8; }
 
-        /* --- メインサイト --- */
+        /* --- メインサイトのスタイル --- */
         #main-site { display: none; }
 
         header {
+            /* 【画像】メインヘッダーの背景画像（back2.jpg） */
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back2.jpg');
-            background-size: cover;
-            background-position: center;
-            color: white; 
-            padding: 80px 20px; 
-            text-align: center;
+            background-size: cover; background-position: center;
+            color: white; padding: 80px 20px; text-align: center;
         }
 
         header h1 { font-size: 3rem; margin: 0; letter-spacing: 4px; }
         header p { font-size: 1.2rem; opacity: 0.9; }
 
         nav {
-            background: rgba(15, 23, 42, 0.9); 
-            position: sticky; 
-            top: 0;
-            display: flex; 
-            justify-content: center; 
-            gap: 20px;
-            padding: 12px 0; 
-            z-index: 100;
+            background: rgba(15, 23, 42, 0.9); position: sticky; top: 0;
+            display: flex; justify-content: center; gap: 20px;
+            padding: 12px 0; z-index: 100;
         }
 
-        nav a { 
-            color: white; 
-            text-decoration: none; 
-            font-size: 0.9rem; 
-            font-weight: bold; 
-        }
+        nav a { color: white; text-decoration: none; font-size: 0.9rem; font-weight: bold; }
 
         .container { max-width: 800px; margin: 20px auto; padding: 0 20px; }
 
         section {
-            background: var(--card); 
-            margin-bottom: 20px; 
-            padding: 25px;
-            border-radius: 12px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            background: var(--card); margin-bottom: 20px; padding: 25px;
+            border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
-        h2 { 
-            color: var(--primary); 
-            border-left: 5px solid var(--primary); 
-            padding-left: 15px; 
-            margin-top: 0; 
-        }
+        h2 { color: var(--primary); border-left: 5px solid var(--primary); padding-left: 15px; margin-top: 0; }
 
-        .feature-card {
-            background: #f1f5f9; 
-            padding: 20px; 
-            border-radius: 8px;
-        }
+        .feature-card { background: #f1f5f9; padding: 20px; border-radius: 8px; }
 
+        /* 動画をレスポンシブ（横幅いっぱい）にするための枠 */
         .video-container {
-            position: relative; 
-            width: 100%; 
-            padding-top: 56.25%; 
-            margin: 20px 0;
+            position: relative; width: 100%; padding-top: 56.25%; margin: 20px 0;
         }
-
         .video-container iframe {
-            position: absolute; 
-            top: 0; left: 0; 
-            width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
         }
 
-        .meta-text {
-            font-size: 0.7rem; 
-            color: var(--text-muted);
-            margin-top: 10px;
-        }
+        .meta-text { font-size: 0.7rem; color: var(--text-muted); margin-top: 10px; }
 
-        footer {
-            text-align: center; 
-            padding: 30px; 
-            background: var(--dark); 
-            color: #94a3b8;
-        }
+        footer { text-align: center; padding: 30px; background: var(--dark); color: #94a3b8; }
     </style>
 </head>
 <body>
@@ -231,7 +172,7 @@
                     <p><strong>6-2 forever.</strong></p>
                 </div>
 
-                <p class="meta-text">動画アーカイブです。限定公開のためリンク等が漏れないようにお願いいたします。このリンクを知っている方のみ、ご覧いただけます</p>
+                <p class="meta-text">動画アーカイブです。限定公開のためリンク等が漏れないようにお願いいたします。</p>
                 
                 <div class="video-container">
                     <iframe
@@ -267,17 +208,24 @@
 </div>
 
 <script>
+/**
+ * クイズの正解判定
+ */
 function checkAnswer() {
     const userAnswer = document.getElementById('answer').value.trim();
-    // 正解リスト
+    
+    // 【設定】正解のパターン。ここに文字を追加すれば、他の言葉でも通るようになる
     const correctAnswers = ["教頭先生", "t", "z"];
 
     if (correctAnswers.includes(userAnswer)) {
+        // 正解の場合：クイズ画面を消して、メインサイトを表示
         document.getElementById('quiz-screen').style.display = 'none';
         document.getElementById('main-site').style.display = 'block';
-        // ログイン成功時に一番上へスクロール
+        
+        // 画面を一番上に戻す
         window.scrollTo(0, 0);
     } else {
+        // 不正解の場合
         alert("答えが違います。");
     }
 }
