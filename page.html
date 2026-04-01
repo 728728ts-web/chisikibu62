@@ -25,9 +25,9 @@
 
     <style>
         :root {
-            --bg: #0a0f16;           /* 深い紺色 */
-            --card-bg: #111827;      /* カードの色 */
-            --accent: #38bdf8;       /* 落ち着いた空色 */
+            --bg: #0a0f16;
+            --card-bg: #111827;
+            --accent: #38bdf8;
             --border: rgba(56, 189, 248, 0.2);
             --text: #f1f5f9;
             --text-sub: #94a3b8;
@@ -39,7 +39,6 @@
             background-color: var(--bg);
             color: var(--text);
             line-height: 1.7;
-            /* 背景の格子をぐっと薄く */
             background-image: radial-gradient(var(--border) 1px, transparent 1px);
             background-size: 30px 30px;
         }
@@ -59,40 +58,62 @@
             border: 1px solid var(--border);
             text-align: center;
             max-width: 400px;
-            width: 80%;
+            width: 85%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .quiz-box h2 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             letter-spacing: 0.2em;
             color: var(--accent);
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+        }
+
+        .quiz-box p {
+            font-size: 0.9rem;
+            margin-bottom: 20px;
         }
 
         #quiz-screen input {
-            background: transparent;
+            background: rgba(0,0,0,0.2);
             border: none;
-            border-bottom: 1px solid var(--accent);
+            border-bottom: 1px solid var(--border);
             color: white;
-            padding: 10px;
+            padding: 12px;
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             outline: none;
             text-align: center;
+            transition: border-color 0.3s;
+        }
+
+        #quiz-screen input:focus {
+            border-bottom-color: var(--accent);
         }
 
         #quiz-screen button {
             background: transparent;
             color: var(--accent);
             border: 1px solid var(--accent);
-            padding: 10px 30px;
+            padding: 10px 40px;
             cursor: pointer;
             transition: 0.3s;
+            font-family: inherit;
+            margin-top: 10px;
         }
 
         #quiz-screen button:hover {
             background: var(--accent);
             color: var(--bg);
+        }
+
+        .login-hint {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--border);
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            letter-spacing: 0.05em;
         }
 
         /* --- メインサイト --- */
@@ -107,21 +128,23 @@
         header h1 {
             font-size: 2rem;
             margin: 0;
-            letter-spacing: 0.5em;
+            letter-spacing: 0.4em;
             color: var(--accent);
+            font-weight: 700;
         }
 
         header p {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-sub);
-            margin-top: 10px;
+            margin-top: 12px;
+            letter-spacing: 0.2em;
         }
 
         nav {
             background: rgba(10, 15, 22, 0.8);
             backdrop-filter: blur(10px);
             position: sticky; top: 0;
-            display: flex; justify-content: center; gap: 40px;
+            display: flex; justify-content: center; gap: 30px;
             padding: 15px 0;
             border-bottom: 1px solid var(--border);
             z-index: 100;
@@ -130,7 +153,7 @@
         nav a {
             color: var(--text-sub);
             text-decoration: none;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             letter-spacing: 0.1em;
             transition: 0.3s;
         }
@@ -139,32 +162,30 @@
 
         .container { max-width: 700px; margin: 40px auto; padding: 0 20px; }
 
-        section {
-            margin-bottom: 50px;
-        }
+        section { margin-bottom: 60px; }
 
         h2 {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--accent);
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 25px;
+            letter-spacing: 0.1em;
         }
 
         h2::before {
             content: '';
-            width: 15px; height: 1px;
+            width: 20px; height: 1px;
             background: var(--accent);
         }
 
-        /* アクセスカウンターの保護枠（ここが重要！） */
         .counter-wrapper {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.9); /* 白背景にして黒文字を見せる */
-            padding: 5px 15px;
-            border-radius: 4px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 6px 18px;
+            border-radius: 2px;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
             margin: 20px 0;
         }
 
@@ -185,24 +206,27 @@
         }
 
         .message-area {
-            border-left: 2px solid var(--border);
+            border-left: 1px solid var(--accent);
             padding-left: 20px;
-            margin: 30px 0;
+            margin: 35px 0;
             color: var(--text-sub);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
+        .message-area p { margin: 12px 0; }
+
         .meta-text {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #4b5563;
+            margin-top: 15px;
         }
 
         footer {
             text-align: center;
-            padding: 60px 20px;
+            padding: 80px 20px;
             color: #334155;
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
         }
     </style>
 </head>
@@ -211,21 +235,26 @@
 <div id="quiz-screen">
     <div class="quiz-box">
         <h2>PORTAL LOGIN</h2>
-        <input type="text" id="answer" placeholder="6-2の社会の担当は？" onkeypress="if(event.key==='Enter') checkAnswer()">
+        <p>質問: 6-2の社会の担当の先生は？</p>
+        <input type="text" id="answer" placeholder="答えを入力" onkeypress="if(event.key==='Enter') checkAnswer()">
         <button onclick="checkAnswer()">ENTER</button>
+        
+        <div class="login-hint">
+            HINT: 〇〇先生（合計4文字）
+        </div>
     </div>
 </div>
 
 <div id="main-site">
     <header>
         <h1>発信局</h1>
-        <p>KNOWLEDGE DEPT. PORTAL</p>
+        <p>KNOWLEDGE DEPT. OFFICIAL</p>
     </header>
 
     <nav>
         <a href="#about">ABOUT</a>
+        <a href="#feature">PICKUP</a>
         <a href="#news">NEWS</a>
-        <a href="#activity">ACTIVITY</a>
     </nav>
 
     <div class="container">
@@ -242,8 +271,8 @@
 
         <section id="feature">
             <div class="feature-card">
-                <h3>今月のピックアップ</h3>
-                <p>新しいWebサイトの運用を開始しました。</p>
+                <h3 style="font-size: 1rem; margin-top: 0;">今月のピックアップ</h3>
+                <p style="font-size: 0.9rem; color: var(--text-sub);">新しいWebサイトの運用を開始しました。</p>
 
                 <div class="video-container">
                     <iframe src="https://www.youtube.com/embed/EH_O0vEBiIQ" frameborder="0" allowfullscreen></iframe>
@@ -254,27 +283,28 @@
                     <p>笑った日もぶつかった日も何気ない毎日もすべてがかけがえのない宝物です。</p>
                     <p>この教室で過ごした時間をずっと忘れません。</p>
                     <p>どこにいてもこのクラスで出会えた奇跡に感謝します。</p>
-                    <p style="color: var(--accent);"><strong>6-2 forever.</strong></p>
+                    <p style="color: var(--accent); margin-top: 20px;"><strong>6-2 forever.</strong></p>
                 </div>
-                <p class="meta-text">※限定公開アーカイブ。リンクの取り扱いにご注意ください。</p>
+                <p class="meta-text">※限定公開アーカイブ。外部へのリンク流出にご注意ください。</p>
             </div>
         </section>
 
         <section id="news">
             <h2>NEWS</h2>
-            <p style="font-size: 0.9rem;">2026/02/02 - システムアップデート完了</p>
-            <p style="font-size: 0.9rem;">2026/01/30 - ポータル公開</p>
+            <p style="font-size: 0.85rem; color: var(--text-sub); margin-bottom: 8px;">2026/04/01 - 見た目変更</p>
+            <p style="font-size: 0.85rem; color: var(--text-sub);">2026/01/30 - ポータル公開</p>
         </section>
     </div>
 
     <footer>
-        &copy; 2026 KNOWLEDGE DEPT.
+        &copy; 2026 KNOWLEDGE DEPT. ALL RIGHTS RESERVED.
     </footer>
 </div>
 
 <script>
 function checkAnswer() {
     const userAnswer = document.getElementById('answer').value.trim();
+    // 正解は元のロジックを維持
     const correctAnswers = ["教頭先生", "t", "z"];
 
     if (correctAnswers.includes(userAnswer)) {
@@ -282,7 +312,7 @@ function checkAnswer() {
         document.getElementById('main-site').style.display = 'block';
         window.scrollTo(0, 0);
     } else {
-        alert("認証に失敗しました。");
+        alert("認証に失敗しました。答えを確認してください。");
     }
 }
 </script>
